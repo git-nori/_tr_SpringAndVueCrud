@@ -1,0 +1,4 @@
+2019-10-15 20:03:16 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: テーブル "CUSTOMER" が見つかりません
+Table "CUSTOMER" not found; SQL statement:
+DELETE FROM customer [42102-199]
