@@ -1,13 +1,10 @@
 spring:
   datasource:
-    url: jdbc:h2:./h2db/jpa
+    url: jdbc:h2:mem:;DB_CLOSE_ON_EXIT=TRUE;
     driverClassName: org.h2.Driver
     username: sa
     password:
-  
+    
   jpa:
-    generate-ddl: true
-  
-  h2:
-    console:
-      enabled: true
+    hibernate:
+      ddl-auto: none
