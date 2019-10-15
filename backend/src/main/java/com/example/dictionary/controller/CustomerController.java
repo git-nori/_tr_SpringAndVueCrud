@@ -36,7 +36,7 @@ public class CustomerController {
     }
 
     // READ
-    @GetMapping("/customers/age/{age:.}")
+    @GetMapping("/customers/age/{age}")
     public List<Customer> getCustomersByAge(@PathVariable("age") int age) {
         List<Customer> customers = repository.findByAge(age);
 
@@ -48,12 +48,11 @@ public class CustomerController {
     public Customer postCustomer(@RequestBody Customer customer) {
         Customer _customer = repository.save(new Customer(customer.getName(), customer.getAge()));
 
-        System.out.println(_customer);
         return _customer;
     }
 
     // UPDATE
-    @PutMapping("/customer/{id:.}")
+    @PutMapping("/customer/{id}")
     public ResponseEntity<Customer> updateCustomer(@PathVariable("id") long id, @RequestBody Customer customer) {
         Optional<Customer> customerData = repository.findById(id); // Optional => nullも許容する(isPresentで存在チェック可能)
 
@@ -69,7 +68,7 @@ public class CustomerController {
     }
 
     // DELETE
-    @DeleteMapping("/customer/{id:.}")
+    @DeleteMapping("/customer/{id}")
     public ResponseEntity<String> deleteCustomer(@PathVariable("id") long id){
         repository.deleteById(id);
 
