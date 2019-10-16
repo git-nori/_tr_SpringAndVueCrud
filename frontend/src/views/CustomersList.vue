@@ -10,7 +10,6 @@
         <customers-table ref="customersTable" :customers="customers" />
       </v-col>
     </v-row>
-    <router-view></router-view>
   </v-container>
 </template>
 

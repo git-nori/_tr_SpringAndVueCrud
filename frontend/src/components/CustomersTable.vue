@@ -11,12 +11,7 @@
         <td>{{ customer.name }}</td>
         <td>{{ customer.age }}</td>
         <td class="text-center">
-          <router-link
-            :to="{
-                  name:'customer-details',
-                  params: { id: customer.id, customer: customer}
-                  }"
-          >detail</router-link>
+          <customer-dialog :customer="customer" />
         </td>
       </tr>
     </tbody>
@@ -24,9 +19,12 @@
 </template>
 
 <script>
+import CustomerDialog from "../components/CustomerDialog";
+
 export default {
   name: "customers-table",
   props: ["customers"],
+  components: { CustomerDialog },
   data() {
     return {
       headers: []
