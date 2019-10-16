@@ -7,28 +7,7 @@
     </v-row>
     <v-row>
       <v-col>
-        <v-simple-table>
-          <thead>
-            <tr>
-              <th v-for="header in headers" :key="header">{{ header }}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="customer in customers" :key="customer.id">
-              <td>{{ customer.id }}</td>
-              <td>{{ customer.name }}</td>
-              <td>{{ customer.age }}</td>
-              <td class="text-center">
-                <router-link
-                  :to="{
-                  name:'customer-details',
-                  params: { id: customer.id, customer: customer}
-                  }"
-                >detail</router-link>
-              </td>
-            </tr>
-          </tbody>
-        </v-simple-table>
+        <customers-table ref="customersTable" :customers="customers" />
       </v-col>
     </v-row>
     <router-view></router-view>
@@ -37,13 +16,14 @@
 
 <script>
 import http from "../http-common";
+import customersTable from "../components/CustomersTable";
 
 export default {
   name: "customers-list",
+  components: { customersTable },
   data() {
     return {
-      customers: [],
-      headers: []
+      customers: []
     };
   },
   methods: {
@@ -51,17 +31,12 @@ export default {
       try {
         const res = await http.get("/customers");
         this.customers = res.data;
-        this.getHeadersList();
+        if (this.customers.length) {
+          this.$refs.customersTable.getHeadersList(this.customers); // 子コンポーネントに値が渡される前にメソッドが実行されるため引数にcustomersオブジェクトを渡す
+        }
       } catch (error) {
         console.log(error);
       }
-    },
-    // active以外のcustomersのkeyを取得し、headersに格納する
-    getHeadersList() {
-      const arr = Object.keys(this.customers[0]).filter(
-        val => val !== "active"
-      );
-      this.headers = arr.concat("");
     }
   },
   mounted() {
