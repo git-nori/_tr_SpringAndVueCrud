@@ -10,14 +10,7 @@ export default new Router({
     {
       path: '/',
       name: 'customers',
-      component: () => import('./views/CustomersList.vue'),
-      children: [{
-        path: "/customer/:id",
-        name: "customer-details",
-        component: () => import('./views/Customer.vue'),
-        props: true
-      }
-      ]
+      component: () => import('./views/CustomersList.vue')
     },
     {
       path: '/add',
